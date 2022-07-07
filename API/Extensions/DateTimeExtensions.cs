@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace API.Extensions
 {
@@ -7,8 +10,8 @@ namespace API.Extensions
         public static int CalculateAge(this DateTime dob)
         {
             var today = DateTime.Today;
-            var age = today.Year-dob.Year;
-            if(dob.Date > today.AddYears(-age)) age--;
+            var age = today.Year - dob.Year;
+            if (dob.Date > today.AddYears(-age)) age--;   //chưa đến ngày sinh thì age -1
             return age;
         }
     }

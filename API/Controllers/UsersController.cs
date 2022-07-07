@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    // tất cả các phương thức phía trong có [Authorized]
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly IMapper _mapper;
-
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
         public UsersController(IUserRepository userRepository, IMapper mapper)
         {
             _mapper = mapper;
@@ -25,12 +26,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers() 
         {
             var users = await _userRepository.GetMembersAsync();
 
             return Ok(users);
-        }
+        }    
+
 
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUsers(string username)

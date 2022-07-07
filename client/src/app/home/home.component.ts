@@ -8,21 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
-  users:any;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  registerToggle(){
-    this.registerMode = !this.registerMode;
-    console.log(this.registerMode);
-    
+  registerToggle() {
+    this.registerMode = !this.registerMode;  
   }
 
   cancelRegisterMode(event: boolean){
-    this.registerMode = event;
+    this.registerMode = event;  
   }
-
 }

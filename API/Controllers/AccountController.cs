@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,42 +29,45 @@ namespace API.Controllers
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
 
             using var hmac = new HMACSHA512();
+
             var user = new AppUser
             {
-                UserName = registerDto.Username.ToLower(),
+                UserName = registerDto.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return new UserDto
+
+            return new UserDto 
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreatToken(user)
             };
-
         }
 
-        [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
-        {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
-            if (user == null) return Unauthorized("Invalid Username");
+        [HttpPost("login")] 
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto){
+            var user = await _context.Users
+                .SingleOrDefaultAsync(x => x.UserName == loginDto.Username);
+            if (user == null) return Unauthorized("Invalid username");  
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
-            var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            for (int i = 0; i < ComputeHash.Length; i++)
+            for (int i = 0; i < computedHash.Length; i++)
             {
-                if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+                if (computedHash[i] != user.PasswordHash[i])return Unauthorized("Invalid Password");
             }
-            return new UserDto
+
+            return new UserDto 
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreatToken(user)
             };
+
         }
 
         private async Task<bool> UserExists(string username)

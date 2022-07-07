@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,13 +36,6 @@ namespace API.Data
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<AppUser>> GetUserAsync()
-        {
-            return await _context.Users
-            .Include(p => p.Photos)
-            .ToListAsync();
-        }
-
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
@@ -50,8 +44,15 @@ namespace API.Data
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
             return await _context.Users
+                .Include(p => p.Photos)
+                .SingleOrDefaultAsync(x => x.UserName == username);
+        }
+
+        public async Task<IEnumerable<AppUser>> GetUsersAsync()
+        {
+            return await _context.Users
             .Include(p => p.Photos)
-            .SingleOrDefaultAsync(x => x.UserName == username);
+            .ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Data.Migrations
 {
-    public partial class Haodd : Migration
+    public partial class UserPasswordAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

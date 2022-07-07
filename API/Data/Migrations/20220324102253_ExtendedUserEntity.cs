@@ -71,7 +71,7 @@ namespace API.Data.Migrations
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "photos",
+                name: "Photos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -79,29 +79,29 @@ namespace API.Data.Migrations
                     Url = table.Column<string>(type: "TEXT", nullable: true),
                     IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
                     PublicId = table.Column<string>(type: "TEXT", nullable: true),
-                    AppUserID = table.Column<int>(type: "INTEGER", nullable: false)
+                    AppUserId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_photos", x => x.Id);
+                    table.PrimaryKey("PK_Photos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_photos_Users_AppUserID",
-                        column: x => x.AppUserID,
+                        name: "FK_Photos_Users_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_photos_AppUserID",
-                table: "photos",
-                column: "AppUserID");
+                name: "IX_Photos_AppUserId",
+                table: "Photos",
+                column: "AppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "photos");
+                name: "Photos");
 
             migrationBuilder.DropColumn(
                 name: "City",

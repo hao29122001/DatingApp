@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220621071354_Haodd")]
-    partial class Haodd
+    [Migration("20220311093250_UserPasswordAdded")]
+    partial class UserPasswordAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.14");
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {

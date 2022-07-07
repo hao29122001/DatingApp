@@ -69,7 +69,7 @@
           "options": {
             "sslKey": "./ssl/server.key",
             "sslCert": "./ssl/server.crt",
-            "ssl":true,
+            "ssl": true,
             "browserTarget": "client:build"
           },
           "configurations": {
@@ -133,6 +133,6 @@
   },
   "defaultProject": "client",
   "cli": {
-    "analytics": "4b05f323-1207-4d11-be2e-c47988d6cf41"
+    "analytics": "61086158-42b1-4524-8aad-192b931b9544"
   }
 }
